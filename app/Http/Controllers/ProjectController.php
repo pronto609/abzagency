@@ -11,11 +11,21 @@ use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
+
+    public function index()
+    {
+        return Project::all();
+    }
     public function store(ProjectStoreRequest $request)
     {
         $validated = $request->validated();
 
         $project = Auth::user()->projects()->create($validated);
+        return new ProjectResource($project);
+    }
+
+    public function show(Request $request, Project $project)
+    {
         return new ProjectResource($project);
     }
 
