@@ -19,7 +19,8 @@ class ProjectController extends Controller
         $projects = QueryBuilder::for(Project::class)
             ->allowedIncludes('tasks')
             ->paginate();
-        return new ProjectCollection($projects);
+//        return new ProjectCollection($projects);
+        return Project::all();
     }
     public function store(ProjectStoreRequest $request)
     {

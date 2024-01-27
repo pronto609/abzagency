@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $user = User::factory()->create();
-        $project = Project::factory()->for($user, 'creator')->create();
+        $project = Project::factory()->create();
+        $project->members()->attach([$user->id]);
         Task::factory()->for($project)->for($user, 'creator')->create();
     }
 }
