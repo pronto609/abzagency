@@ -35,17 +35,17 @@ class Project extends Model
         return $this->belongsToMany(User::class, Member::class);
     }
 
-    protected static function booted(): void
-    {
-        parent::boot();
-
-        static::addGlobalScope('members', function (Builder $builder) {
-            $user = Auth::user();
-            if ($user) {
-                $builder->whereHas('members', function (Builder $query) use ($user) {
-                    $query->where('user_id', $user->id);
-                });
-            }
-        });
-    }
+//    protected static function booted(): void
+//    {
+//        parent::boot();
+//
+//        static::addGlobalScope('members', function (Builder $builder) {
+//            $user = Auth::user();
+//            if ($user) {
+//                $builder->whereHas('members', function (Builder $query) use ($user) {
+//                    $query->where('user_id', $user->id);
+//                });
+//            }
+//        });
+//    }
 }

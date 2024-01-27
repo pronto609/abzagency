@@ -13,14 +13,17 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class ProjectController extends Controller
 {
+    public function __construct(
+    ) {
+      $this->authorizeResource(Project::class, 'project');
+    }
 
     public function index()
     {
         $projects = QueryBuilder::for(Project::class)
             ->allowedIncludes('tasks')
             ->paginate();
-//        return new ProjectCollection($projects);
-        return Project::all();
+        return new ProjectCollection($projects);
     }
     public function store(ProjectStoreRequest $request)
     {
@@ -32,7 +35,7 @@ class ProjectController extends Controller
 
     public function show(Request $request, Project $project)
     {
-        return (new ProjectResource($project))->load('tasks');
+        return (new ProjectResource($project))->load(['tasks', 'members']);
     }
 
     public function update(ProjectUpdateRequest $request, Project $project)
